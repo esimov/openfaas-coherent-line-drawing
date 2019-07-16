@@ -1,0 +1,16 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  coherent-line-drawing:
+    lang: go-opencv
+    handler: ./colidr-openfaas
+    image: esimov/colidr-openfaas:0.1
+    environment:
+      input_mode: "url"
+      output_mode: "image"
+      content_type: "image/jpeg"
+      write_timeout: 100s
+    labels:
+      com.openfaas.scale.zero: "false"
