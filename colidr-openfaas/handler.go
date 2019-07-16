@@ -50,13 +50,14 @@ func Handle(req []byte) string {
 
 	if val, exists := os.LookupEnv("input_mode"); exists && val == "url" {
 		inputURL := strings.TrimSpace(string(req))
-		url, err := url.Parse(inputURL)
+		u, err := url.Parse(inputURL)
 		if err != nil {
 			return fmt.Sprintf("Unable to parse url: %s", err)
 		}
-		params = url.Query()
+		link := strings.Split(inputURL, "?")[0]
+		params = u.Query()
 
-		resp, err := http.Get(inputURL)
+		resp, err := http.Get(link)
 		if err != nil {
 			return fmt.Sprintf("Unable to download image file from URI: %s, status %v", inputURL, resp.Status)
 		}
@@ -184,7 +185,7 @@ func Handle(req []byte) string {
 		}
 
 		filename := fmt.Sprintf("/tmp/%d.jpg", time.Now().UnixNano())
-		dst, err := os.OpenFile(filename, os.O_CREATE | os.O_RDWR, 0755)
+		dst, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, 0755)
 		if err != nil {
 			return fmt.Sprintf("unable to open the destination file: %v", err)
 		}
