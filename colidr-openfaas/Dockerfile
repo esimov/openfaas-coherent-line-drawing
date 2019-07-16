@@ -107,6 +107,7 @@ COPY --from=builder /usr/local/include /usr/local/include
 
 WORKDIR /home/app
 
+COPY --from=builder /go/src/handler/function/  .
 COPY --from=builder /go/src/handler/handler    .
 COPY --from=builder /usr/bin/fwatchdog         .
 
