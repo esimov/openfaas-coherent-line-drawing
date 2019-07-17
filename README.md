@@ -12,6 +12,7 @@ $ git clone https://github.com/esimov/openfaas-coherent-line-drawing
 
 #### Build
 ```bash 
+$ faas-cli template pull https://github.com/alexellis/opencv-openfaas-template
 $ faas-cli build -f stack.yml --gateway=http://<GATEWAY-IP>
 ```
 
@@ -19,6 +20,8 @@ $ faas-cli build -f stack.yml --gateway=http://<GATEWAY-IP>
 ```bash 
 $ faas-cli deploy -f stack.yml --gateway=http://<GATEWAY-IP>
 ```
+
+**Note:** in case of large images you need to increase `write_timeout` in stack.yml.
 
 You can access the UI on the url provided to `--gateway`. 
 
