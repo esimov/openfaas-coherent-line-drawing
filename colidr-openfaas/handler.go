@@ -29,7 +29,6 @@ import (
 	"image/jpeg"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -59,14 +58,14 @@ func Handle(req []byte) string {
 
 		resp, err := http.Get(link)
 		if err != nil {
-			return fmt.Sprintf("Unable to download image file from URI: %s, status %v", inputURL, resp.Status)
+			return fmt.Sprintf("unable to download image file from URI: %s, status %v", inputURL, resp.Status)
 		}
 		defer resp.Body.Close()
 
 		data, err = ioutil.ReadAll(resp.Body)
 
 		if err != nil {
-			return fmt.Sprintf("Unable to read response body: %s", err)
+			return fmt.Sprintf("unable to read response body: %s", err)
 		}
 	} else {
 		var decodeError error
@@ -81,59 +80,39 @@ func Handle(req []byte) string {
 		}
 	}
 	var (
-		sr, sm, sc, rho, tau float64
-		k, ei, di, bl        int64
-		ai                   bool
+		sr, sm, sc, rho, tau float64 = 2.6, 3.0, 1.0, 0.98, 0.98
+		k, ei, di, bl        int64   = 2, 2, 1, 3
+		ai                           = false
 	)
 	if params.Get("sr") != "" {
 		sr, _ = strconv.ParseFloat(params.Get("sr"), 64)
-	} else {
-		sr = 2.6
 	}
 	if params.Get("sm") != "" {
 		sm, _ = strconv.ParseFloat(params.Get("sm"), 64)
-	} else {
-		sm = 3.0
 	}
 	if params.Get("sc") != "" {
 		sc, _ = strconv.ParseFloat(params.Get("sc"), 64)
-	} else {
-		sc = 1.0
 	}
 	if params.Get("rho") != "" {
 		rho, _ = strconv.ParseFloat(params.Get("rho"), 64)
-	} else {
-		rho = 0.98
 	}
 	if params.Get("tau") != "" {
 		tau, _ = strconv.ParseFloat(params.Get("tau"), 32)
-	} else {
-		tau = 0.98
 	}
 	if params.Get("k") != "" {
 		k, _ = strconv.ParseInt(params.Get("k"), 10, 32)
-	} else {
-		k = 1
 	}
 	if params.Get("ei") != "" {
 		ei, _ = strconv.ParseInt(params.Get("ei"), 10, 32)
-	} else {
-		ei = 1
 	}
 	if params.Get("di") != "" {
 		di, _ = strconv.ParseInt(params.Get("di"), 10, 32)
-	} else {
-		di = 1
 	}
 	if params.Get("bl") != "" {
 		bl, _ = strconv.ParseInt(params.Get("bl"), 10, 32)
-	} else {
-		bl = 3
 	}
 	if params.Get("ai") != "" {
 		ai, _ = strconv.ParseBool(params.Get("ai"))
-	} else {
-		ai = false
 	}
 
 	opts := options{
@@ -151,13 +130,13 @@ func Handle(req []byte) string {
 
 	tmpfile, err := ioutil.TempFile("/tmp", "image")
 	if err != nil {
-		log.Fatalf("Unable to create temporary file: %v", err)
+		return fmt.Sprintf("unable to create temporary file: %v", err)
 	}
 	defer os.Remove(tmpfile.Name())
 
 	_, err = io.Copy(tmpfile, bytes.NewBuffer(data))
 	if err != nil {
-		return fmt.Sprintf("Unable to copy the source URI to the destionation file")
+		return fmt.Sprintf("unable to copy the source URI to the destionation file")
 	}
 
 	var output string
@@ -173,7 +152,7 @@ func Handle(req []byte) string {
 	if output == "image" || output == "json_image" {
 		cld, err := NewCLD(tmpfile.Name(), opts)
 		if err != nil {
-			log.Fatalf("cannot initialize CLD: %v", err)
+			return fmt.Sprintf("cannot initialize CLD: %v", err)
 		}
 
 		cldData := cld.GenerateCld()
@@ -181,7 +160,7 @@ func Handle(req []byte) string {
 		rows, cols := cld.image.Rows(), cld.image.Cols()
 		mat, err := gocv.NewMatFromBytes(rows, cols, gocv.MatTypeCV8UC1, cldData)
 		if err != nil {
-			log.Fatalf("error retrieving the byte array: %v", err)
+			return fmt.Sprintf("error retrieving the byte array: %v", err)
 		}
 
 		filename := fmt.Sprintf("/tmp/%d.jpg", time.Now().UnixNano())
