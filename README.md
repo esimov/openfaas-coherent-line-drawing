@@ -1,6 +1,4 @@
-# openfaas-coherent-line-drawing
-
-Coherent Line Drawing OpenFaaS function.
+# Coherent Line Drawing - OpenFaaS function
 
 For more details about the implementation check the project source code at https://github.com/esimov/colidr.
 
@@ -27,9 +25,11 @@ You can access the UI on the url provided to `--gateway`.
 ### Results
 After deployment the `coherent-line-drawing` function will show up in the function list. You have to provide an image URL then hit invoke. This will generate a contoured, sketch-liked image.
 
+![image](https://user-images.githubusercontent.com/883386/61373248-fd09f500-a8a1-11e9-9bb2-55aa3f0722e6.png)
+
 You can also provide different values as query parameters. The follwing parameters are supported:
 
-| Flag | Default | Description |
+| Flag | Default value | Description |
 | --- | --- | --- |
 | `aa` | false | Anti aliasing |
 | `bl` | 3 | New height |
@@ -42,7 +42,7 @@ You can also provide different values as query parameters. The follwing paramete
 | `sr` | 2.6 | Sigma R |
 | `tau` | 0.98 | Tau |
 
-Below is a sample url with query parameters you can try out:
+Below is an example with query parameters you can try out:
 ```bash
 https://user-images.githubusercontent.com/883386/61370913-30e21c00-a89c-11e9-8edf-f4b59b59793c.jpg?k=2&sr=2.9&sm=3.5&tau=0.999&aa=1&ei=2&di=1
 ```
