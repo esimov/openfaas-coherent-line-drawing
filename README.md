@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat)](./LICENSE)
 
-For more info about the implementation details check the project source code at https://github.com/esimov/colidr.
+For more information about the implementation details check the project source code at https://github.com/esimov/colidr.
 
 ### Local usage
 To run the function locally you have to make sure OpenFaaS is up and running. Read the official documentation for more help. https://docs.openfaas.com/
@@ -22,7 +22,7 @@ $ faas-cli build -f stack.yml --gateway=http://<GATEWAY-IP>
 ```bash 
 $ faas-cli deploy -f stack.yml --gateway=http://<GATEWAY-IP>
 ```
-You can access the UI on the url provided to `--gateway`. 
+You can access the UI on the url provided for `--gateway`. 
 
 **Note:** in case of large images you need to increase `write_timeout` in stack.yml.
 
