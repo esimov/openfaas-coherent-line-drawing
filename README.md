@@ -1,12 +1,10 @@
 # Coherent Line Drawing - OpenFaaS function
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat)](./LICENSE)
-
-An OpenFaaS function for generating sketch like artistic image from the provided source image.
-For more information about the implementation details check the project source code at https://github.com/esimov/colidr.
+OpenFaaS function for generating sketch like artistic image from the provided source image.
+For more information about the implementation check the project source code at https://github.com/esimov/colidr.
 
 ### Local usage
-To run the function locally you have to make sure OpenFaaS is up and running. Read the official documentation for more help in case is needed: https://docs.openfaas.com/
+To run the function locally you have to make sure OpenFaaS is up and running. Read the official documentation for help in case is needed: https://docs.openfaas.com/
 
 Clone the repository:
 ```bash
