@@ -11,6 +11,6 @@ functions:
       input_mode: "url"
       output_mode: "image"
       content_type: "image/jpeg"
-      write_timeout: 100s
+      write_timeout: 300s
     labels:
       com.openfaas.scale.zero: "false"

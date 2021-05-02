@@ -82,7 +82,7 @@ func Handle(req []byte) string {
 	var (
 		sr, sm, sc, rho, tau float64 = 2.6, 3.0, 1.0, 0.98, 0.98
 		k, ei, di, bl        int64   = 2, 2, 1, 3
-		ai                           = false
+		ai                           = true
 	)
 	if params.Get("sr") != "" {
 		sr, _ = strconv.ParseFloat(params.Get("sr"), 64)
@@ -136,7 +136,7 @@ func Handle(req []byte) string {
 
 	_, err = io.Copy(tmpfile, bytes.NewBuffer(data))
 	if err != nil {
-		return fmt.Sprintf("unable to copy the source URI to the destionation file")
+		return fmt.Sprintf("unable to copy the source URI to the destination file")
 	}
 
 	var output string
